@@ -4,7 +4,7 @@ Regenerate pipeline_colab.ipynb from the .py scripts (code is copied, not rewrit
 Run this after changing fix_data_ai.py, inject_anomalies.py, build_training_set.py or features.py:
 
     pip install nbformat
-    python data_pipeline/make_notebook.py
+    python ai_training/make_notebook.py
 
 The .py scripts are the source of truth. Do not edit code inside the notebook by hand:
 changes there are lost the next time this script runs.
@@ -16,7 +16,7 @@ from pathlib import Path
 
 import nbformat as nbf
 
-SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent      # data_pipeline folder
+SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent      # ai_training folder
 OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else SRC / "pipeline_colab.ipynb"
 files = {n: (SRC / f"{n}.py").read_text(encoding="utf-8") for n in
          ("features", "fix_data_ai", "inject_anomalies", "build_training_set")}
@@ -58,10 +58,10 @@ code = lambda s: cells.append(nbf.v4.new_code_cell(s.strip()))
 
 # ------------------------------------------------------------------ intro
 md("""
-# Data Pipeline — AI Model Mumtaz (versi Colab)
+# AI Training — Data Model Validasi Absen (versi Colab)
 
 Notebook ini menyiapkan **data training** untuk model validasi absen tutor Bimbel Mumtaz.
-Isinya sama persis dengan skrip di folder `data_pipeline/` (kode disalin dari file `.py`),
+Isinya sama persis dengan skrip di folder `ai_training/` repo `data-science` (kode disalin dari file `.py`),
 hanya dipecah per bagian dan diberi penjelasan.
 
 Acuan: `docs/IMPLEMENTASI AI MODEL + COMPARISON.md` (repo `mumtaz-bimbel-dashboard`, branch `feat/ui-ux-polish`).

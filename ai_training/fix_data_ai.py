@@ -1,6 +1,6 @@
 """
 Usage:
-    python data_pipeline/fix_data_ai.py data/raw/data_ai.csv data/processed/data_ai_clean.csv data/processed/data_ai_issues.csv
+    python ai_training/fix_data_ai.py data/raw/data_ai.csv data/ai_training/data_ai_clean.csv data/ai_training/data_ai_issues.csv
 
 Format-only fixes for data_ai.csv -> the 8 fields of doc section 3.2. No row is removed.
   - lesson_date  M/D/YYYY -> YYYY-MM-DD
@@ -18,6 +18,7 @@ import json
 import sys
 import uuid
 from collections import Counter
+from pathlib import Path
 
 FIELDS = ["id", "tutor_id", "student_id", "subject_ids", "lesson_date", "start_time",
           "duration_minutes", "submitted_at"]
@@ -69,6 +70,8 @@ def main(src, out_csv, out_issues):
         if ids[r["id"]] > 1:
             flag("-", r["id"], "id_ganda", "id sesi muncul lebih dari sekali")
 
+    for path in (out_csv, out_issues):
+        Path(path).parent.mkdir(parents=True, exist_ok=True)   # create output folder if missing
     with open(out_csv, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()

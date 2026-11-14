@@ -1,6 +1,6 @@
 """
 Usage:
-    python data_pipeline/inject_anomalies.py data/processed/data_ai_clean.csv data/processed/sessions_with_synthetic.csv
+    python ai_training/inject_anomalies.py data/ai_training/data_ai_clean.csv data/ai_training/sessions_with_synthetic.csv
 
 Real data is ~94% valid and some rules have almost no examples, so the model
 cannot learn them. This script adds SYNTHETIC rows for every rule (doc section 5.5,
@@ -358,6 +358,7 @@ def main(src, dst):
     rows = real + synthetic
     for r in rows:
         r["subject_ids"] = r["subject_ids"] if isinstance(r["subject_ids"], str) else json.dumps(r["subject_ids"])
+    Path(dst).parent.mkdir(parents=True, exist_ok=True)   # create output folder if missing
     with open(dst, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS + ["is_synthetic", "scenario"])
         w.writeheader()

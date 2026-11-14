@@ -1,6 +1,6 @@
 """
 Usage:
-    python data_pipeline/build_training_set.py data/processed/sessions_with_synthetic.csv data/processed/training
+    python ai_training/build_training_set.py data/ai_training/sessions_with_synthetic.csv data/ai_training/training
 
 Input: a sessions CSV with the 8 fields of doc section 3.2 (+ optional is_synthetic, scenario).
 For every session (the `target`) this script:

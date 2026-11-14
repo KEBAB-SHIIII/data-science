@@ -1,4 +1,4 @@
-# Data Pipeline — AI Model Mumtaz
+# AI Training — Data Model Validasi Absen
 
 Skrip Data Scientist (DS) untuk menyiapkan data *training* model validasi absen.
 Acuan: `docs/IMPLEMENTASI AI MODEL + COMPARISON.md` di repo `mumtaz-bimbel-dashboard` (branch `feat/ui-ux-polish`).
@@ -21,23 +21,23 @@ jadi file CSV/Excel tidak akan ikut ter-*push*. Bagikan data lewat Google Drive.
 ## Setup
 
 ```bash
-pip install -r data_pipeline/requirements.txt
+pip install -r ai_training/requirements.txt
 ```
 
-Letakkan file data mentah di `data/raw/` (ambil dari Google Drive tim).
+Letakkan file data mentah di `data/raw/` (ambil dari Google Drive tim). Hasil disimpan di `data/ai_training/`.
 
 ## Alur lengkap (jalankan dari root repo)
 
 ```bash
 # 1. Rapikan format data mentah -> 8 field section 3.2
-python data_pipeline/fix_data_ai.py data/raw/data_ai.csv data/processed/data_ai_clean.csv data/processed/data_ai_issues.csv
+python ai_training/fix_data_ai.py data/raw/data_ai.csv data/ai_training/data_ai_clean.csv data/ai_training/data_ai_issues.csv
 # 2. Tambahkan baris anomali sintetis
-python data_pipeline/inject_anomalies.py data/processed/data_ai_clean.csv data/processed/sessions_with_synthetic.csv
+python ai_training/inject_anomalies.py data/ai_training/data_ai_clean.csv data/ai_training/sessions_with_synthetic.csv
 # 3. Susun comparisons, hitung 19 fitur, beri label
-python data_pipeline/build_training_set.py data/processed/sessions_with_synthetic.csv data/processed/training
+python ai_training/build_training_set.py data/ai_training/sessions_with_synthetic.csv data/ai_training/training
 ```
 
-Hasil akhir: `data/processed/training/training_dataset.csv` (siap untuk `model.fit(X, y)`)
+Hasil akhir: `data/ai_training/training/training_dataset.csv` (siap untuk `model.fit(X, y)`)
 dan `sample_requests.json` (contoh payload `{target, comparisons, config}` untuk menguji FastAPI).
 
 ### Versi Google Colab
@@ -57,7 +57,7 @@ notebook **tidak** sampai ke skrip maupun aplikasi. Cara mengubah kode:
 
 ```bash
 pip install nbformat
-python data_pipeline/make_notebook.py
+python ai_training/make_notebook.py
 ```
 
 Jangan mengedit kode di dalam notebook secara manual — perubahan itu akan tertimpa saat
@@ -167,7 +167,7 @@ urutan yang sama.**
 ### `clean_absen.py` — dari Excel absen mentah (format per-sheet murid)
 
 ```bash
-python data_pipeline/clean_absen.py "data/raw/10. Absen Bimbel Oktober 2026.xlsx" data/processed/absen
+python ai_training/clean_absen.py "data/raw/10. Absen Bimbel Oktober 2026.xlsx" data/ai_training/absen
 ```
 
 Memperbaiki tanggal yang tertukar oleh Excel, memecah `Durasi Les` menjadi `start_time` +

@@ -6,7 +6,7 @@ from docs/IMPLEMENTASI AI MODEL + COMPARISON.md, section 3.2:
     start_time, duration_minutes, submitted_at
 
 Usage:
-    python data_pipeline/clean_absen.py "data/raw/<raw.xlsx>" data/processed/absen
+    python ai_training/clean_absen.py "data/raw/<raw.xlsx>" data/ai_training/absen
 
 Outputs (in output_dir):
     sessions_clean.csv       8 fields, subject_ids as a JSON list string
