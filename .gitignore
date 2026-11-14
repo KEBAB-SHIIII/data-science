@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+
+# Environment & secrets
+.env
+.env.*
+
+# Data must never be committed (see data/.gitignore)
+*.csv
+*.xlsx
+*.xls
+lookup_*.csv
+config.local.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

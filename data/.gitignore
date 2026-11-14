@@ -1,0 +1,4 @@
+# Real data stays OUT of GitHub (all KEBAB-SHIIII repos are public).
+# Share data files through Google Drive instead. Only this file is committed.
+*
+!.gitignore
